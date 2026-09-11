@@ -68,7 +68,12 @@ func onExit() {}
 
 func transcribe() {
 	logger.Info("Invoking whisper")
-	out, err := exec.Command("whisper-cli", "-m", "ggml-base.bin", "-f", "input.wav", "--no-timestamps").Output()
+	modelPath := os.Getenv("MURMUR_MODEL_PATH")
+	if modelPath == "" {
+		modelPath = "ggml-base.bin"
+	}
+
+	out, err := exec.Command("whisper-cli", "-m", modelPath, "-f", "input.wav", "--no-timestamps").Output()
 	if err != nil {
 		logger.Error("Transcribe failed", "error", err)
 		return
