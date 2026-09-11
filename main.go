@@ -21,7 +21,11 @@ func main() {
 }
 
 func onReady() {
-	if icon, err := os.ReadFile("icon2.png"); err == nil {
+	iconPath := os.Getenv("MURMUR_ICON_PATH")
+	if iconPath == "" {
+		iconPath = "icon2.png"
+	}
+	if icon, err := os.ReadFile(iconPath); err == nil {
 		systray.SetIcon(icon)
 	}
 

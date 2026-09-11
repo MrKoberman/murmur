@@ -23,6 +23,7 @@
       packages = eachSystem (pkgs: {
         default = pkgs.writeShellScriptBin "murmur" ''
           export MURMUR_MODEL_PATH="${getModel pkgs}"
+          export MURMUR_ICON_PATH="${./icon2.png}"
           export PATH="${pkgs.alsa-utils}/bin:${pkgs.whisper-cpp}/bin:${pkgs.xclip}/bin:$PATH"
           ${self.packages.${pkgs.system}.murmur-binary}/bin/murmur
         '';
